@@ -10,10 +10,10 @@
     //"default_popup": "popup.html"
   },
   "permissions": [
-     //"tabs", "http://*/*"
-     "activeTab"
-    //"https://ajax.googleapis.com/"
-    //"<all_urls>"
+     "tabs",
+     "webRequest",
+     "http://*/",
+     "https://*/"
    
   ],
   
@@ -27,7 +27,7 @@
   
   "background": {
     "scripts": ["test.js"],
-    "persistent": false
+    "persistent": true
   }
   
  
