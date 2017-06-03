@@ -11,23 +11,24 @@
   },
   "permissions": [
      "tabs",
-     "webRequest",
+     //"webRequest",
      "http://*/",
      "https://*/"
    
   ],
   
+  
   //"content_scripts": [
   //  {
-  //    "matches": ["http://*/*"],
-  //    "js": ["test.js"]
+  //    "matches": ["*://*/"],
+  //    "js": ["test.js", "jquery-3.2.1.min.js"]
   //  }
-  //]
+  //],
   
   
   "background": {
-    "scripts": ["test.js"],
-    "persistent": true
+    "scripts": ["test.js", "jquery-3.2.1.min.js"],
+    "persistent": false
   }
   
  

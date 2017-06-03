@@ -4,10 +4,10 @@ var reqUrl;
 function getUrl() {
     chrome.tabs.query({active: true, lastFocusedWindow: true}, function(tabs) {
         curUrl= tabs[0].url;
-        //alert(curUrl);
+        alert(curUrl);
         if (!curUrl.search('http://')) {    // http: true, https: false
             reqUrl= curUrl.replace("http://", "https://");
-            //alert(reqUrl);           
+            alert(reqUrl);           
             //test();
         }
     });
@@ -19,14 +19,14 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
         //alert("asdf",chrome.webRequest.HttpHeaders);
         alert("?");
         
-        // 삽질중 이거 안돌아감
+        // 삽질중
         $.ajax({
             url: reqUrl,
             type: 'GET',
             success: function(res) {
                 var contents= $(res.responseText);
                 var title= contents.find('title').text();
-                alert("오씨발 됐다");
+                alert(title);   // 여전히 cross-domain 문제
             },
             error: function() {
                 alert("SSㅣ발");
