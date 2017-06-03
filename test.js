@@ -12,13 +12,17 @@ function getUrl() {
             $.ajax({
                 url: reqUrl,
                 type: 'GET',
-                success: function(res) {
+                success: function(res, statusText, resObj) {
                 var contents= $(res.responseText);
                 var title= contents.find('title').text();
                     alert("오예 https 연결을 받는다구여");
-                    alert(res);     // for debug, 추후 지울것 ㅇㅇ
+                    alert(res);
+                    alert(statusText, resObj);
+
                 },
-                error: function() {
+                error: function(res, statusText, errObj) {
+                    // can't detect net:: error type
+                    alert(res, statusText, errObj);
                     alert("https 안 받는 구질구질한 사이트..");
                 }
             });

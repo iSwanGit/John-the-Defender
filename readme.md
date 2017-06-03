@@ -9,5 +9,10 @@ Chrome Extension을 사용하여 구현
 ## 시나리오
 (current commit)  
 HTTP인 경우 HTTPS로 강제하여 request 전송.  
-Response가 돌아오면 서비스 제공자의 보안문제, 혹은 SSL Strip 등의 MITM attack을 당하고 있는 중  
-올바른 response가 돌아오지 않으면 HTTPS 연결을 지원하지 않는 서버..
+1. Response가 돌아온다 (200 OK)
+- SSL 사용하나 서버의 페이지 보안 수준이 낮다
+- 혹은 SSL Strip 등의 MITM attack을 당하고 있는 중 (최초 페이지에서 미끼 링크만 strip되어있는 상태)
+2. 보안 에러가 발생한다 (net::ERR_INSECURE_CONNECTION)
+- (특히 중도에 검증할 경우) HSTS bypassing / SSL Strip 공격을 받음
+3. 응답이 오지 않는다 (net::ERR_CONNECTION_REFUSED)
+- 서버에서 HTTPS 연결을 지원하지 않는다
