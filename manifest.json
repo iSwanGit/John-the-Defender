@@ -12,11 +12,12 @@
   "permissions": [
      "tabs",
      "http://*/",
-     "https://*/"
+     "https://*/",
+     "webRequest"
   ],
   
   "background": {
     "scripts": ["test.js", "jquery-3.2.1.min.js"],
-    "persistent": false
+    "persistent": true
   }
 }
