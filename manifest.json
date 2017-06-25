@@ -19,5 +19,10 @@
   "background": {
     "scripts": ["test.js", "jquery-3.2.1.min.js"],
     "persistent": true
-  }
+  },
+
+  "content_scripts": [{
+    "matches": ["*://*/*"],
+    "js": ["content.js"]
+  }]
 }

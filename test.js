@@ -2,12 +2,13 @@ var curUrl;
 var reqUrl;
 
 var errFlag= false;
+var pwForms= [];
 
-function getUrl() {
+function start() {
     chrome.tabs.query({active: true, lastFocusedWindow: true}, function(tabs) {
-        tab= tabs[0];
+        var tab= tabs[0];
         curUrl= tab.url;
-        
+
         chrome.webRequest.onErrorOccurred.addListener(
                 function(details) {
                     if (errFlag == false) {
@@ -22,6 +23,7 @@ function getUrl() {
                     types: ['xmlhttprequest']
                 }
             );
+
 
         if (!curUrl.search('http://')) {    // http: true, https: false
             reqUrl= curUrl.replace("http://", "https://");
@@ -38,7 +40,9 @@ function getUrl() {
                     alert(resObj.getAllResponseHeaders());
                     alert(resObj.responseText);
                     alert(statusText, resObj);
-                }
+                    
+                },
+                timeout: 5000
             });
             
         }
@@ -47,10 +51,30 @@ function getUrl() {
     });
 }
 
+// sleep method
+function sleep(time) {
+    return new Promise((resolve)=> setTimeout(resolve, time));
+}
+
+// onUpdated: start trigger
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+    
     if (changeInfo.status == 'complete') {
-        errFlag= false;
-        getUrl();
+        // js internal page loading을 감안.. 특히 icns! sleep없으면 0나온다
+        sleep(1000).then(()=>{
+            chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+                chrome.tabs.sendMessage(tabs[0].id, {greeting: "hello"}, function(response) {
+                    pwForms= response.forms;
+                    //alert(pwForms.length);
+                
+                    if (pwForms.length > 0) {
+                        errFlag= false;
+                        start();
+                    }
+                });
+            
+            });
+        })
     }
 });
 
