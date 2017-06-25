@@ -21,4 +21,7 @@ chrome.runtime.onMessage.addListener(
       sendResponse({forms: pwForms});
       console.log(pwForms);
     }
+    else if (request.greeting == "redirect") {
+        document.location.href=request.url;
+    }
   });
