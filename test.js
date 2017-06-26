@@ -58,7 +58,7 @@ function start() {
                 url: reqUrl,
                 type: 'GET',
                 success: function(res, statusText, resObj) {
-                alert(resObj.status);
+                //alert(resObj.status);
                 var msg= "이 페이지는 https 보안 연결을 지원합니다.\n"+
                 "해커가 연결을 가로채고 있을 수 있습니다. https로 연결하시겠습니까?\n"+
                 "https 연결에 문제가 발생하면 뒤로가기를 통해 다시 되돌아오시기 바랍니다.";
